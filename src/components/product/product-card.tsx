@@ -21,21 +21,20 @@ const ProductCard: React.FC<ProductProps> = ({
 }) => {
 	return (
 		<div className='max-w-sm rounded-xl bg-white shadow-lg transition-shadow duration-300 hover:shadow-xl'>
-			<div className='relative h-64 overflow-hidden rounded-t-xl'>
-				<Link href={`/product/${id}`}>
+			<Link href={`/product/${id}`}>
+				<div className='relative grid h-64 place-items-center overflow-hidden rounded-t-xl'>
 					<Image
 						src={image ?? ''}
 						alt={title ?? ''}
-						width={600}
-						height={500}
+						width={200}
+						height={100}
 						className='transform object-cover transition-transform duration-300 hover:scale-105'
 					/>
 					<span className='absolute right-2 top-2 rounded-full bg-indigo-600 px-3 py-1 text-sm text-white'>
 						{category}
 					</span>
-				</Link>
-			</div>
-
+				</div>
+			</Link>
 			<div className='p-5'>
 				<h2 className='mb-2 line-clamp-1 text-xl font-semibold text-gray-800'>
 					{title}
