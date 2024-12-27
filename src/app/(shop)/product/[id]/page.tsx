@@ -1,5 +1,6 @@
 import { getProductById } from '@/app/api/actions/getProductById';
 import { ProductView } from '@/components/product/product-view';
+import { notFound } from 'next/navigation';
 
 interface Props {
 	params: Promise<{ id: string }>;
@@ -7,14 +8,10 @@ interface Props {
 
 export default async function ProductPage({ params }: Props) {
 	const { id } = await params;
-	const product = (await getProductById(id)) ?? [];
+	const product = await getProductById(id);
 
 	if (!product.ok) {
-		return (
-			<div className='grid place-items-center font-extrabold'>
-				<h1>{product.msg}</h1>
-			</div>
-		);
+		notFound();
 	}
 	return <ProductView {...product.product} />;
 }

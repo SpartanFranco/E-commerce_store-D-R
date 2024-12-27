@@ -1,17 +1,15 @@
 'use server';
 
 import { Product } from '@/interfaces/products.type';
-
-const url = 'https://fakestoreapi.com/products';
+import { URL } from '@/products';
 
 export async function getProductById(id: string) {
 	try {
-		const data = await fetch(` ${url}/${id}`),
-			json: Product = await data.json();
+		const res: Product = await fetch(`${URL}/${id}`).then((res) => res.json());
 
 		return {
 			ok: true,
-			product: json,
+			product: res,
 		};
 	} catch (error) {
 		console.log({ error });

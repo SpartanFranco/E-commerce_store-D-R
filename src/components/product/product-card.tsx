@@ -11,7 +11,7 @@ interface ProductProps {
 	image?: string;
 }
 
-const ProductCard: React.FC<ProductProps> = ({
+export const ProductCard: React.FC<ProductProps> = ({
 	id,
 	title,
 	price,
@@ -55,5 +55,3 @@ const ProductCard: React.FC<ProductProps> = ({
 		</div>
 	);
 };
-
-export default ProductCard;

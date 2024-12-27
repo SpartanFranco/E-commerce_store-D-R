@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 import { dmSans } from './fonts/getFonts';
+import { Header } from '../components/header/header';
+import Footer from '@/components/footer/footer';
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -15,7 +17,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${dmSans.className} antialiased`}>{children}</body>
+			<body className={`${dmSans.className} antialiased`}>
+				<Header />
+				{children}
+				<Footer />
+			</body>
 		</html>
 	);
 }
