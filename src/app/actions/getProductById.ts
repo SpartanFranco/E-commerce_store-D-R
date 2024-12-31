@@ -15,7 +15,6 @@ export async function getProductById(id: string) {
 		console.log({ error });
 		return {
 			ok: false,
-			msg: 'Product not found',
 		};
 	}
 }

@@ -1,31 +1,23 @@
+import { Product } from '@/interfaces/products.type';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-interface ProductProps {
-	id?: number;
-	title?: string;
-	price?: number;
-	description?: string;
-	category?: string;
-	image?: string;
-}
-
-export const ProductCard: React.FC<ProductProps> = ({
+export const ProductCard: React.FC<Product> = ({
 	id,
 	title,
 	price,
 	description,
 	category,
-	image,
+	images,
 }) => {
 	return (
 		<div className='max-w-sm rounded-xl bg-white shadow-lg transition-shadow duration-300 hover:shadow-xl'>
 			<Link href={`/product/${id}`}>
 				<div className='relative grid h-64 place-items-center overflow-hidden rounded-t-xl'>
 					<Image
-						src={image ?? ''}
-						alt={title ?? ''}
+						src={images[0]}
+						alt={title}
 						width={200}
 						height={100}
 						className='transform object-cover transition-transform duration-300 hover:scale-105'

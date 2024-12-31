@@ -1,6 +1,6 @@
-import { getProductById } from '@/app/api/actions/getProductById';
+import { getProductById } from '@/app/actions/getProductById';
+import { NoProductsFound } from '@/components/product/not-found-products';
 import { ProductView } from '@/components/product/product-view';
-import { notFound } from 'next/navigation';
 
 interface Props {
 	params: Promise<{ id: string }>;
@@ -11,7 +11,7 @@ export default async function ProductPage({ params }: Props) {
 	const product = await getProductById(id);
 
 	if (!product.ok) {
-		notFound();
+		return <NoProductsFound />;
 	}
 	return <ProductView {...product.product} />;
 }

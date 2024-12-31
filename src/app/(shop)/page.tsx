@@ -1,11 +1,18 @@
-import { FeaturedSection } from '@/components/featured-section';
-import { MenuCategories } from '@/components/header/navbar-categories';
+import { auth } from '@/auth.config';
+import { AutoCarousel } from '@/components/caurosel-auto';
 
-export default function Home() {
+import { redirect } from 'next/navigation';
+
+export default async function HomePage() {
+	const session = await auth();
+
+	if (!session?.user) {
+		redirect('/auth/sign-in');
+	}
+	console.log({ session });
 	return (
 		<div>
-			<FeaturedSection />
-			<MenuCategories />
+			<AutoCarousel />
 		</div>
 	);
 }

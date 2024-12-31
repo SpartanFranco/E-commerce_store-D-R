@@ -1,2 +1,2 @@
-export const URL = 'https://fakestoreapi.com/products';
-export const URLCategory = 'https://fakestoreapi.com/products/category/';
+export const URL = 'https://dummyjson.com/products';
+export const URLCategory = 'https://dummyjson.com/products/category/';

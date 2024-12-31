@@ -1,11 +1,11 @@
 'use server';
 
-import { Product } from '@/interfaces/products.type';
-import { delay } from '@/lib/utils';
+import { type Product, type Products } from '@/interfaces/products.type';
+
 import { URL, URLCategory } from '@/products';
 interface ProductsResponse {
 	ok: boolean;
-	categories?: { category: string; image: string }[];
+
 	products?: Product[];
 	msg?: string;
 }
@@ -18,25 +18,13 @@ interface CategoryResponse {
 
 export async function getProducts(query?: string): Promise<ProductsResponse> {
 	try {
-		await delay(2000);
 		const data = await fetch(URL),
-			json: Product[] = await data.json();
+			json: Products = await data.json();
 
-		const categories: Record<string, { category: string; image: string }> = {};
-
-		json.forEach((p) => {
-			if (!categories[p.category]) {
-				categories[p.category] = {
-					image: p.image,
-					category: p.category,
-				};
-			}
-		});
-
-		let products = json;
+		let products = json.products;
 		if (query) {
 			console.log({ query });
-			products = json.filter(
+			products = json.products.filter(
 				(p) =>
 					p.title.toLowerCase().includes(query.toLowerCase()) ||
 					p.category.toLowerCase().includes(query.toLowerCase()),
@@ -45,7 +33,7 @@ export async function getProducts(query?: string): Promise<ProductsResponse> {
 
 		return {
 			ok: true,
-			categories: Object.values(categories),
+
 			products,
 		};
 	} catch (error) {
@@ -62,7 +50,6 @@ export async function getProductsByCategory(
 	query?: string,
 ): Promise<CategoryResponse> {
 	try {
-		await delay(2000);
 		const data = await fetch(`${URLCategory}${category}`, {
 			cache: 'no-store',
 		});
@@ -71,12 +58,12 @@ export async function getProductsByCategory(
 			throw new Error('Failed to fetch category');
 		}
 
-		const json: Product[] = await data.json();
-
-		let products = json;
+		const json: Products = await data.json();
+		console.log(json);
+		let dataProducts = json.products;
 		if (query) {
 			console.log({ query });
-			products = json.filter(
+			dataProducts = json.products.filter(
 				(p) =>
 					p.title.toLowerCase().includes(query.toLowerCase()) ||
 					p.category.toLowerCase().includes(query.toLowerCase()),
@@ -84,7 +71,7 @@ export async function getProductsByCategory(
 		}
 		return {
 			ok: true,
-			products,
+			products: dataProducts,
 		};
 	} catch (error) {
 		console.log({ error });
